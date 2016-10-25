@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use 5.10.1;
+use warnings;
+use lib qw(lib);
+
+use Bookish::Winner qw(tokens);
+use Getopt::Long;
+use List::Util qw(pairs);
+use Path::Tiny;
+
+GetOptions(
+    'input=s'     => \my $input,
+    'sequences=s' => \my $sequences,
+    'words=s'     => \my $words,
+);
+
+die "Must provide input file (--input=corpus.dict)" unless $input;
+die "Must provide sequences file (--sequences=sequences) for output" unless $sequences;
+die "Must provide words file (--words=words) for output" unless $words;
+
+my @tokens = pairs tokens path($input)->lines({chomp => 1});
+path($sequences)->spew( map { "$_->[0]\n" } @tokens );
+path($words)->spew( map { "$_->[1]\n" } @tokens );
+

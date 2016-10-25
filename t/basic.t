@@ -5,7 +5,7 @@ use warnings;
 use Test::More;
 use Test::Deep;
 
-use Bookish::Winner qw(filter);
+use Bookish::Winner qw(tokens);
 
 my @dict = qw(
   arrows
@@ -14,7 +14,7 @@ my @dict = qw(
   me
 );
 
-ok my %output = filter @dict;
+ok my %output = tokens @dict;
 
 my $sequences = [ sort keys %output ];
 

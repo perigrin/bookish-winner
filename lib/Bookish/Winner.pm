@@ -3,9 +3,9 @@ use 5.10.1;
 use warnings;
 
 use Exporter qw(import);
-our @EXPORT_OK = qw(filter);
+our @EXPORT_OK = qw(tokens);
 
-sub filter {
+sub tokens {
     my @words = @_;
 
     my %seen;
@@ -26,7 +26,6 @@ sub filter {
 
         # unwrap the arrayref for what's left
         $seen{$seq} = $seen{$seq}->[0];
-
     }
     # return the list sorted by sequence
     return map { $_ => $seen{$_} } sort keys %seen;
