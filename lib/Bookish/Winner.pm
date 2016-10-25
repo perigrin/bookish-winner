@@ -10,16 +10,19 @@ sub tokens {
 
     my %seen;
 
-    for my $word (@words) {
-        # break each word down to a list of sequences
-        for my $seq ($word =~ /(?=(.{4}))/gc) {
+    # map each word to it's lowercase so our sequences are case insensative
+    for my $word ( map { lc $_ } @words ) {
+
+        # break each word down to a list of sequences using positive lookahead
+        for my $seq ( $word =~ /(?=(.{4}))/gc ) {
             push @{ $seen{$seq} //= [] }, $word;
         }
     }
 
-    for my $seq (keys %seen) {
+    for my $seq ( keys %seen ) {
+
         # filter out duplicate words
-        if (@{$seen{$seq}} > 1) {
+        if ( @{ $seen{$seq} } > 1 ) {
             delete $seen{$seq};
             next;
         }
@@ -27,6 +30,7 @@ sub tokens {
         # unwrap the arrayref for what's left
         $seen{$seq} = $seen{$seq}->[0];
     }
+
     # return the list sorted by sequence
     return map { $_ => $seen{$_} } sort keys %seen;
 }
