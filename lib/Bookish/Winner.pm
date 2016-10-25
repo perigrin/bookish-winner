@@ -37,3 +37,34 @@ sub tokens {
 
 1;
 __END__
+
+=head1 NAME
+
+Booking::Winner - Finding unique sequences in a multitude of words
+
+=head1 SYNOPSIS
+
+    use Bookish::Winner qw(tokens);
+
+    my %tokens = tokens qw(arrow carrots give me);
+
+=head1 DESCRIPTION
+
+Bookish::Winner takes a list of words and returns every unique four character
+sequence found in at least one word. It retuns the sequences sorted
+alphabetically and  paired with which words they were found in.
+
+=head1 FUNCTIONS
+
+=over 4
+
+=item tokens(@words)
+
+Takes a list of words and returns a sorted list of sequence / word pairs.
+
+=back
+
+=head1 AUTHOR
+
+Chris Prather <chris.prather@tamarou.com>
+
